@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BOOLFLIX</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+    <link rel="stylesheet" href="./assets/css/master.css">
+  </head>
+  <body>
+    <div id="root">
+
+      <div class="container-fluid">
+        <div class="logo">
+          BOOLFLIX
+        </div>
+        <div class="navbar-search">
+          <div class="row">
+            <div class="search-bar">
+              <!-- <input v-model="filter"
+              placeholder="Cerca o inizia una nuova chat"
+               type="text" name="" value="">
+            </div>
+            <div class="container-chat" >
+              <div class="msg-left"
+               v-for="(contact, i) in contacts"
+               v-if="contact.name.toLowerCase().includes(filter.toLowerCase())"
+               :class= "(i == index ) ? 'active' : ''"
+
+               @click="index = i">
+                <img class="avatar" :src="`./assets/img/avatar${contact.avatar}.jpg`" alt="">
+                <div class="not-column">
+                  <span class="nome-client">{{ contact.name }}</span>
+                  <span class="last-msg">{{  }}</span>
+                </div>
+                <span class="time" >{{ }}</span>
+              </div>
+            </div> -->
+            <div class="container search-bar">
+              <label for="cercafilm"></label><input v-model="scriviTxt"  type="text">
+  			<button @click="cercafilm(scriviTxt)">Cerca</button>
+            </div>
+      <hr v-if="searchResult.length > 0">
+		<h3 v-if="searchResult.length > 0">Film : </h3>
+    <main>
+
+
+
+			<div v-for="film in searchResult" class="card">
+
+					<p class="titolo">Titolo : <span>{{film.title}}</span></p>
+					<p class="titolo-orig">Titolo originale : <span>{{film.original_title}}</span></p>
+          <p class="lingua">Lingua : <span>{{film.original_language}}</span></p>
+
+					<p class="voto">Voto medio : <span>{{film.vote_average}}</span></p>
+
+
+			</div>
+    </main>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<!-- fine header inizio main -->
+
+<!-- fine main inizio footer -->
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script src="./assets/js/main.js" charset="utf-8"></script>
+  </body>
+</html>
