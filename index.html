@@ -40,6 +40,8 @@
               </div>
             </div> -->
             <div class="container search-bar">
+
+
               <label for="cercafilm"></label><input v-model="scriviTxt"  type="text">
   			<button @click="cercafilm(scriviTxt)">Cerca</button>
             </div>
@@ -50,10 +52,13 @@
 
 
 			<div v-for="film in searchResult" class="card">
+        <div class="card-cover" :style="`background-image: url('${film.poster_path}') ; `">
 
-					<p class="titolo">Titolo : <span>{{film.title}}</span></p>
-					<p class="titolo-orig">Titolo originale : <span>{{film.original_title}}</span></p>
-          <p class="lingua">Lingua : <span>{{film.original_language}}</span></p>
+        </div>
+
+					<p class="titolo">Titolo : <span>{{getTitle(film) }}</span></p>
+					<p class="titolo-orig">Titolo originale : <span>{{getTitleOriginal(film)}}</span></p>
+          <p class="lingua">Lingua : <span>{{getLang(film)}}</span></p><img class="flag" :src="`https://www.unknown.nu/flags/images/${getLang(film)}-100`">
 
 					<p class="voto">Voto medio : <span>{{film.vote_average}}</span></p>
 
