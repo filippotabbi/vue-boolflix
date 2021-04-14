@@ -6,25 +6,14 @@ var app = new Vue({
 
   data: {
     scriviTxt: '',
+    searchResultMovie:[],
+    searchResultTV:[],
     searchResult:[],
     uri: 'https://api.themoviedb.org/3/',
     apikey: '6f4bba30f4fdd35743414ebb5116c305',
   },
   mounted () {
-		axios.get( ` ${this.uri}configuration?api_key=${this.apikey} ` )
-			.then((configs) => {
-				let size = configs.data.images.logo_sizes[4];
-				let base = configs.data.images.base_url;
-				this.baseImgPath = base+size;
 
-			})
-      axios.get( ` ${this.uri}configuration?api_key=${this.apikey} ` )
-        .then((configs) => {
-          let size = configs.data.images.logo_sizes[4];
-          let base = configs.data.images.base_url;
-          this.baseImgPath = base+size;
-
-        })
     },
   methods: {
     cercafilm: function(scriviTxt) {
@@ -34,7 +23,7 @@ var app = new Vue({
       })
         axios.get( `${this.uri}search/tv?api_key=${this.apikey}&language=it-IT&query= ` + scriviTxt)
         .then((response) => {
-          this.searchResult = response.data.results;
+          this.searchResultTV = response.data.results;
         })
       },
       getTitle: function(obj) {
@@ -55,8 +44,24 @@ var app = new Vue({
       },
       getLang: function (obj) {
         let str = obj.original_language;
-        return (str.toLowerCase()); 
+        return (str.toLowerCase());
+      },
+      getStar: function (rating) {
+			let decimi = parseFloat(rating);
+			let quinti = Math.round(decimi / 2);
+			return quinti
+		},
+    getPoster: function (obj) {
+      console.log(obj.poster_path);
+      if (obj.poster_path) {
+        return ('https://image.tmdb.org/t/p/w342/${film.poster_path}');
       }
+      else {
+        return this.noposter;
+      }
+  },
+
+
 
 }
 

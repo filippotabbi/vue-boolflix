@@ -11,62 +11,127 @@
     <link rel="stylesheet" href="./assets/css/master.css">
   </head>
   <body>
-    <div id="root">
+    <div>
+      <img class="logo" src="./assets/img/boolflix.png" alt="">
+    </div>
+    <div class="col-xs-12 col-sm-12 col-lg-12 p-50">
+      <nav class="nav-bar">
 
-      <div class="container-fluid">
-        <div class="logo">
-          BOOLFLIX
-        </div>
-        <div class="navbar-search">
-          <div class="row">
-            <div class="search-bar">
-              <!-- <input v-model="filter"
-              placeholder="Cerca o inizia una nuova chat"
-               type="text" name="" value="">
-            </div>
-            <div class="container-chat" >
-              <div class="msg-left"
-               v-for="(contact, i) in contacts"
-               v-if="contact.name.toLowerCase().includes(filter.toLowerCase())"
-               :class= "(i == index ) ? 'active' : ''"
+          <div class="text-center">
+            <a href="#">Film</a>
+          </div>
+          <div class="text-center">
+            <a class="color-grey" href="#">Serie TV</a>
 
-               @click="index = i">
-                <img class="avatar" :src="`./assets/img/avatar${contact.avatar}.jpg`" alt="">
-                <div class="not-column">
-                  <span class="nome-client">{{ contact.name }}</span>
-                  <span class="last-msg">{{  }}</span>
+          </div>
+
+          <div class="text-center">
+
+          </div>
+          <div class="text-center">
+
+          </div>
+          <div class="text-center p-rel not-imp">
+            <a id="feat-info" class="color-grey" href="#">Generi</a>
+            <div class="features">
+              <div class="col-xs-12">
+                <div class="col-xs-3 ">
+                  <h6 class="flex"><i class="fas fa-meh-blank"></i>THRILLER</h6>
                 </div>
-                <span class="time" >{{ }}</span>
+                <div class="col-xs-3 ">
+                  <h6 class="flex"><i class="fas fa-laugh-beam"></i>COMICO</h6>
+                </div>
+                <div class="col-xs-3 ">
+                  <h6 class="flex"><i class="fas fa-grin-hearts"></i>ROMANTICO</h6>
+                </div>
+                <div class="col-xs-3 ">
+                  <h6 class="flex"><i class="fas fa-angry"></i>AZIONE</h6>
+                </div>
               </div>
-            </div> -->
-            <div class="container search-bar">
+              <div class="col-xs-12">
+                <div class="col-xs-3 ">
+                  <h6 class="flex"><i class="fas fa-grin-stars"></i>AVVENTURA</h6>
+                </div>
+                <div class="col-xs-3 ">
+                  <h6 class="flex"><i class="fas fa-grin-beam-sweat"></i>BIOGRAFICO</h6>
+                </div>
+                <div class="col-xs-3 ">
+                  <h6 class="flex"><i class="fas fa-flushed"></i>HORROR</h6>
+                </div>
+                <div class="col-xs-3 ">
+                  <h6 class="flex"><i class="fas fa-dizzy"></i>FANTASCIENZA</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-center p-rel">
+            <a id="plans-info" class="color-grey not-imp" href="#">Account</a>
+          </div>
+          <div class="text-center p-rel">
+            <a id="about-info" class="color-grey not-imp" href="#">I più visti</a>
+          </div>
+          <div class="text-center p-rel">
+            <a id="help-info" class="color-grey not-imp" href="#">Nuove uscite</a>
+          </div>
+          <div class="">
+
+            <a class="btn-sign" href="#">Sign In</a>
+          </div>
+            <div class=" ">
+                <a class="btn-get"href="#">Get The App</a>
+
+          </div>
+
+      </nav>
+    </div>
 
 
-              <label for="cercafilm"></label><input v-model="scriviTxt"  type="text">
-  			<button @click="cercafilm(scriviTxt)">Cerca</button>
+    <div id="root">
+      <div class="container-fluid">
+        <div class="navbar-search">
+            <div class="search-bar">
+            <div class="container search-bar"> <span> <b>Inserisci il titolo che stai cercando :</b> </span>
+              <label for="cercafilm"></label><input v-model="scriviTxt"  type="text" @keyup.enter="cercafilm(scriviTxt)">
+  			<button @click="cercafilm(scriviTxt)"  >Cerca</button>
             </div>
       <hr v-if="searchResult.length > 0">
-		<h3 v-if="searchResult.length > 0">Film : </h3>
+		<h3 v-if="searchResult.length > 0"> </h3>
     <main>
 
 
 
-			<div v-for="film in searchResult" class="card">
-        <div class="card-cover" :style="`background-image: url('${film.poster_path}') ; `">
+			<div id="info" v-for="film in searchResult" v-if="film.poster_path" class="card">
+        <div class="card-cover" :style="`background-image: url('https://image.tmdb.org/t/p/w342/${film.poster_path}') ; `">
+          <div class="overlay" >
 
+          </div>
         </div>
+        <p class="voto">
+          <i v-for="stelle in getStar(film.vote_average)" class="fas fa-star"></i>
+          <i v-for="stelle in (5 - getStar(film.vote_average))" v-if="(getStar(film.vote_average) > 0)" class="far fa-star"></i>
+          <span class="gold" v-if="(getStar(film.vote_average) == 0)">rating non disponibile</span>
+        </p>
+        <p class="titolo">Titolo : <span>{{getTitle(film) }}</span></p>
+        <p class="titolo-orig">Titolo originale : <span>{{getTitleOriginal(film)}}</span></p>
+        <img class="flag" :src="`https://www.unknown.nu/flags/images/${getLang(film)}-100`">
+      </div>
+      <div id="info" v-for="film in searchResultTV" v-if="film.poster_path" class="card">
+        <div class="card-cover" :style="`background-image: url('https://image.tmdb.org/t/p/w342/${film.poster_path}') ; `">
+          <div class="overlay" >
 
-					<p class="titolo">Titolo : <span>{{getTitle(film) }}</span></p>
-					<p class="titolo-orig">Titolo originale : <span>{{getTitleOriginal(film)}}</span></p>
-          <p class="lingua">Lingua : <span>{{getLang(film)}}</span></p><img class="flag" :src="`https://www.unknown.nu/flags/images/${getLang(film)}-100`">
-
-					<p class="voto">Voto medio : <span>{{film.vote_average}}</span></p>
-
-
-			</div>
+          </div>
+        </div>
+        <p class="voto">
+          <i v-for="stelle in getStar(film.vote_average)" class="fas fa-star"></i>
+          <i v-for="stelle in (5 - getStar(film.vote_average))" v-if="(getStar(film.vote_average) > 0)" class="far fa-star"></i>
+          <span class="gold" v-if="(getStar(film.vote_average) == 0)">rating non disponibile</span>
+        </p>
+        <p class="titolo">Titolo : <span>{{getTitle(film) }}</span></p>
+        <p class="titolo-orig">Titolo originale : <span>{{getTitleOriginal(film)}}</span></p>
+        <img class="flag" :src="`https://www.unknown.nu/flags/images/${getLang(film)}-100`">
+      </div>
     </main>
             </div>
-          </div>
         </div>
       </div>
 
@@ -75,9 +140,10 @@
 <!-- fine main inizio footer -->
 
     </div>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script src="./assets/js/nav.js" charset="utf-8"></script>
     <script src="./assets/js/main.js" charset="utf-8"></script>
   </body>
 </html>
